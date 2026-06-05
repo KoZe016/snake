@@ -72,8 +72,6 @@
         lastTickTime  = 0;
 
         scoreDisplay.textContent = '0';
-        gameStatus.textContent   = 'Use arrow keys or WASD to move';
-        gameStatus.classList.remove('alert');
         gameWrapper.classList.remove('game-over-state');
         scoreBox.classList.remove('pop');
         btnPause.textContent = 'Pause';
@@ -251,8 +249,6 @@
         stopLoop();
         // One last draw to show shake
         drawGame(performance.now());
-        gameStatus.textContent = 'Game Over — Press Start or Space';
-        gameStatus.classList.add('alert');
         gameWrapper.classList.add('game-over-state');
         btnStart.textContent = 'Restart';
         spawnParticles(snake[0].x, snake[0].y, '#ff4081', 28);
@@ -438,6 +434,27 @@
         ctx.closePath();
     }
 
+    function drawStartOverlay() {
+        ctx.fillStyle = 'rgba(0,0,0,0.65)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.textAlign = 'center';
+        // "Start" title
+        ctx.font      = 'bold 32px "Segoe UI","Inter",sans-serif';
+        ctx.fillStyle = '#00e676';
+        ctx.shadowColor = '#00e676';
+        ctx.shadowBlur  = 18;
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        ctx.fillText(isTouchDevice ? 'Tap Start to play' : 'Press Space to start', canvas.width / 2, canvas.height / 2 - 14);
+        ctx.shadowBlur  = 0;
+        // sub-hint
+        ctx.font      = '14px "Segoe UI","Inter",sans-serif';
+        ctx.fillStyle = 'rgba(0,230,118,0.7)';
+        if (!isTouchDevice) {
+            ctx.fillText('WASD / Arrow keys to move  ·  Space / P to pause', canvas.width / 2, canvas.height / 2 + 18);
+        }
+        ctx.textAlign = 'start';
+    }
+
     function drawPauseOverlay() {
         ctx.fillStyle = 'rgba(0,0,0,0.55)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -445,6 +462,27 @@
         ctx.font      = 'bold 28px "Segoe UI","Inter",sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText('Paused', canvas.width / 2, canvas.height / 2);
+        ctx.textAlign = 'start';
+    }
+
+    function drawGameOverOverlay() {
+        ctx.fillStyle = 'rgba(0,0,0,0.65)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.textAlign = 'center';
+        // "Game Over" title
+        ctx.font      = 'bold 32px "Segoe UI","Inter",sans-serif';
+        ctx.fillStyle = '#ff4081';
+        ctx.shadowColor = '#ff4081';
+        ctx.shadowBlur  = 18;
+        ctx.fillText('Game Over', canvas.width / 2, canvas.height / 2 - 14);
+        ctx.shadowBlur  = 0;
+        // sub-hint
+        ctx.font      = '14px "Segoe UI","Inter",sans-serif';
+        ctx.fillStyle = 'rgba(255,64,129,0.7)';
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        if (!isTouchDevice) {
+            ctx.fillText('Space to restart  ·  WASD / Arrow keys to move  ·  Space / P to pause', canvas.width / 2, canvas.height / 2 + 18);
+        }
         ctx.textAlign = 'start';
     }
 
@@ -460,7 +498,9 @@
         drawSnake();
         drawParticles();
         ctx.restore();
+        if (!isRunning && !hasStartedOnce && !isGameOver) drawStartOverlay();
         if (isPaused && !isGameOver) drawPauseOverlay();
+        if (isGameOver) drawGameOverOverlay();
     }
 
     // ── Input ──────────────────────────────────────────────────────
@@ -503,10 +543,8 @@
         isPaused = !isPaused;
         if (isPaused) {
             stopLoop();
-            gameStatus.textContent  = 'Paused';
             btnPause.textContent    = 'Resume';
         } else {
-            gameStatus.textContent  = 'Use arrow keys or WASD to move';
             btnPause.textContent    = 'Pause';
             startLoop();
         }
@@ -527,10 +565,8 @@
 
         if (DIR_KEYS[key]) {
             const [dx, dy] = DIR_KEYS[key];
-            // Auto-start on first arrow key
-            if (!isRunning && !isGameOver) { startGame(); }
             queueDirection(dx, dy);
-        } else if (key === ' ' || key === 'enter') {
+        } else if (key === ' ') {
             (!isRunning || isGameOver) ? startGame() : togglePause();
         } else if (key === 'p') {
             togglePause();
@@ -639,6 +675,5 @@
     // ── Boot ───────────────────────────────────────────────────────
     initGame();
     isRunning = false;
-    gameStatus.textContent = 'Press Start or arrow key to play';
 
 }());
