@@ -537,8 +537,17 @@
         }
     });
 
-    btnStart.addEventListener('click', startGame);
-    btnPause.addEventListener('click', togglePause);
+    // Use pointerdown instead of click so these fire immediately on touch
+    // without depending on the browser's click-synthesis (which our document-level
+    // touchstart/touchend preventDefault can suppress on some mobile browsers).
+    function addMainBtn(el, fn) {
+        el.addEventListener('pointerdown', (e) => { e.preventDefault(); fn(); });
+        // Keyboard / mouse fallback — pointerdown already covers mouse, but
+        // keep click as a no-op duplicate guard for accessibility (Enter on focused btn).
+        el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } });
+    }
+    addMainBtn(btnStart, startGame);
+    addMainBtn(btnPause, togglePause);
 
     // ── Touch controls (buttons) ───────────────────────────────────
     function addTouchBtn(id, dx, dy) {
@@ -602,6 +611,8 @@
     }
 
     function onTouchEnd(e) {
+        const tag = e.target.tagName;
+        if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT') return;
         e.preventDefault();
         const t = [...e.changedTouches].find(t => t.identifier === swipeTouchId);
         if (t) swipeTouchId = null;
