@@ -563,8 +563,12 @@
     const SWIPE_THRESHOLD = 20; // px — low for responsiveness
 
     function onTouchStart(e) {
-        // Always block default to prevent scroll / bounce on iOS
-        e.preventDefault();
+        // Don't block default on buttons/links — doing so suppresses the
+        // synthesized click event that btnStart / btnPause rely on.
+        const tag = e.target.tagName;
+        if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT') return;
+
+        e.preventDefault(); // block scroll / bounce everywhere else
 
         if (swipeTouchId !== null) return; // already tracking
         const t       = e.changedTouches[0];
