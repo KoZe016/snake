@@ -378,6 +378,12 @@ canvas {
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 540px) {
+    body {
+        min-height: 100dvh;
+        justify-content: flex-start;
+        padding-top: max(env(safe-area-inset-top, 0px), 8px);
+    }
+
     .page-title {
         font-size: 2.2rem;
         letter-spacing: 5px;
@@ -427,4 +433,35 @@ canvas {
     .touch-controls {
         display: none;
     }
+}
+/* ── Scroll / touch lock ─────────────────────────────────────── */
+html, body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+    height: 100%;
+}
+
+/* Restore scroll only inside the game wrapper if needed */
+.game-wrapper {
+    touch-action: none;
+}
+
+/* Touch buttons: respond on pointerdown not click for speed */
+.touch-btn:not(.empty) {
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.touch-btn:not(.empty):active,
+.touch-btn:not(.empty).pressed {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(0.9);
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+}
+
+/* Speed indicator — subtle text update */
+.game-status {
+    min-height: 20px;
 }
