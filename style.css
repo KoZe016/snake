@@ -13,7 +13,6 @@
     --danger-glow: 0 0 30px rgba(255, 64, 129, 0.5);
 }
 
-/* ── Reset ───────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -22,7 +21,6 @@
     box-sizing: border-box;
 }
 
-/* ── Page ────────────────────────────────────────────────────── */
 body {
     background: var(--bg);
     background-image:
@@ -40,9 +38,12 @@ body {
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: default;
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+    height: 100%;
 }
 
-/* ── Background particles ────────────────────────────────────── */
 .bg-particles {
     position: fixed;
     inset: 0;
@@ -64,22 +65,18 @@ body {
         transform: translateY(110vh) scale(0);
         opacity: 0;
     }
-
     10% {
         opacity: 0.08;
     }
-
     90% {
         opacity: 0.04;
     }
-
     100% {
         transform: translateY(-10vh) scale(1.5);
         opacity: 0;
     }
 }
 
-/* ── SNAKE title (above card) ────────────────────────────────── */
 .page-title {
     font-size: 3.2rem;
     font-weight: 900;
@@ -99,16 +96,10 @@ body {
 }
 
 @keyframes titleShimmer {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    100% {
-        background-position: 200% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 
-/* ── Game card ───────────────────────────────────────────────── */
 .game-wrapper {
     position: relative;
     z-index: 1;
@@ -122,13 +113,13 @@ body {
     align-items: center;
     gap: 18px;
     transition: box-shadow 0.4s ease;
+    touch-action: none;
 }
 
 .game-wrapper.game-over-state {
     box-shadow: var(--shadow), var(--danger-glow);
 }
 
-/* ── Header row (deco snake + scores) ───────────────────────── */
 .header {
     display: flex;
     align-items: center;
@@ -138,7 +129,6 @@ body {
     gap: 16px;
 }
 
-/* Decorative animated snake */
 .deco-snake {
     display: flex;
     align-items: center;
@@ -155,26 +145,12 @@ body {
 }
 
 @keyframes snakeBob {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(-5deg);
-    }
-
-    25% {
-        transform: translateY(-6px) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-10px) rotate(5deg);
-    }
-
-    75% {
-        transform: translateY(-4px) rotate(0deg);
-    }
+    0%, 100% { transform: translateY(0px) rotate(-5deg); }
+    25% { transform: translateY(-6px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+    75% { transform: translateY(-4px) rotate(0deg); }
 }
 
-/* Score boxes */
 .score-panel {
     display: flex;
     gap: 14px;
@@ -197,20 +173,9 @@ body {
 }
 
 @keyframes popScore {
-    0% {
-        transform: scale(1);
-        border-color: var(--border);
-    }
-
-    40% {
-        transform: scale(1.25);
-        border-color: var(--primary);
-    }
-
-    100% {
-        transform: scale(1);
-        border-color: var(--border);
-    }
+    0% { transform: scale(1); border-color: var(--border); }
+    40% { transform: scale(1.25); border-color: var(--primary); }
+    100% { transform: scale(1); border-color: var(--border); }
 }
 
 .score-label {
@@ -236,56 +201,19 @@ body {
     color: var(--gold);
 }
 
-/* ── Canvas ──────────────────────────────────────────────────── */
-canvas {
-    display: block;
-    border-radius: 16px;
-    background: #0a0a16;
-    border: 2px solid var(--border);
-    max-width: 100%;
-    height: auto;
-    transition: border-color 0.4s ease;
-}
-
-.game-over-state canvas {
-    border-color: #ff408144;
-}
-
-/* ── Status text ─────────────────────────────────────────────── */
-.game-status {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    letter-spacing: 0.4px;
-    text-align: center;
-    min-height: 20px;
-    transition: color 0.3s ease;
-}
-
-.game-status.alert {
-    color: var(--accent);
-    font-weight: 600;
-    animation: pulse 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-}
-
-/* ── Buttons ─────────────────────────────────────────────────── */
 .controls-row {
     display: flex;
     gap: 12px;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+/* Hide control buttons on desktop (mouse) */
+@media (pointer: fine) {
+    .controls-row {
+        display: none;
+    }
 }
 
 .btn {
@@ -334,33 +262,47 @@ canvas {
     transform: scale(0.95);
 }
 
-/* ── Mobile touch controls ───────────────────────────────────── */
+canvas {
+    display: block;
+    border-radius: 16px;
+    background: #0a0a16;
+    border: 2px solid var(--border);
+    max-width: 100%;
+    height: auto;
+    transition: border-color 0.4s ease;
+    touch-action: none;
+}
+
+.game-over-state canvas {
+    border-color: #ff408144;
+}
+
 .touch-controls {
     display: none;
-    gap: 8px;
+    gap: 12px;
 }
 
 .touch-row {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     justify-content: center;
 }
 
 .touch-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
     border: 2px solid var(--border);
     background: var(--surface);
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.15s ease;
     -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    touch-action: none;
 }
 
 .touch-btn:active {
@@ -376,7 +318,6 @@ canvas {
     pointer-events: none;
 }
 
-/* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 540px) {
     body {
         min-height: 100dvh;
@@ -427,53 +368,4 @@ canvas {
     .header {
         justify-content: center;
     }
-}
-
-@media (min-width: 541px) {
-    .touch-controls {
-        display: none;
-    }
-}
-/* ── Scroll / touch lock ─────────────────────────────────────── */
-html, body {
-    overflow: hidden;
-    overscroll-behavior: none;
-    touch-action: none;
-    height: 100%;
-}
-
-/* Restore scroll only inside the game wrapper if needed */
-.game-wrapper {
-    touch-action: none;
-}
-
-/* Touch buttons: respond on pointerdown not click for speed */
-.touch-btn:not(.empty) {
-    touch-action: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.touch-btn:not(.empty):active,
-.touch-btn:not(.empty).pressed {
-    background: var(--primary);
-    border-color: var(--primary);
-    transform: scale(0.9);
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
-}
-
-/* Speed indicator — subtle text update */
-.game-status {
-    min-height: 20px;
-}
-
-/* ── Hide play/pause buttons on non-touch devices ───────────── */
-@media (pointer: fine) {
-    .controls-row {
-        display: none;
-    }
-}
-
-/* ── Status text: only visible before game starts ───────────── */
-.game-status:empty {
-    display: none;
 }
