@@ -1,86 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Snake</title>
-        <link rel="icon" type="image/x-icon" href="favicons/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png" />
-        <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png" />
-        <link rel="manifest" href="favicons/site.webmanifest" />
-        <link rel="stylesheet" href="style.css" />
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake</title>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0f0f1a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="favicons/site.webmanifest" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="bg-particles" id="bgParticles"></div>
 
-    <body>
-        <div class="bg-particles" id="bgParticles"></div>
+    <h1 class="page-title">SNAKE</h1>
 
-        <h1 class="page-title">SNAKE</h1>
-
-        <div class="game-wrapper" id="gameWrapper">
-            <div class="header">
-                <div class="deco-snake" aria-hidden="true">
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="grad-head" cx="40%" cy="35%" r="60%">
-                                <stop offset="0%" stop-color="#69f0ae" />
-                                <stop offset="60%" stop-color="#00c853" />
-                                <stop offset="100%" stop-color="#007e33" />
-                            </radialGradient>
-                            <radialGradient id="grad-body" cx="40%" cy="35%" r="60%">
-                                <stop offset="0%" stop-color="#52e09a" />
-                                <stop offset="60%" stop-color="#00a846" />
-                                <stop offset="100%" stop-color="#006629" />
-                            </radialGradient>
-                        </defs>
-                        <circle cx="50" cy="78" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
-                        <circle cx="40" cy="68" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
-                        <circle cx="34" cy="56" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
-                        <circle cx="38" cy="44" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
-                        <circle cx="50" cy="37" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
-                        <circle cx="62" cy="32" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
-                        <circle cx="72" cy="24" r="13" fill="url(#grad-head)" stroke="#004d1a" stroke-width="1.2" />
-                        <circle cx="67" cy="18" r="4" fill="white" />
-                        <circle cx="77" cy="18" r="4" fill="white" />
-                        <circle cx="68" cy="19" r="2.2" fill="#111" />
-                        <circle cx="78" cy="19" r="2.2" fill="#111" />
-                        <path d="M72 36 L72 42 M72 42 L69 46 M72 42 L75 46" stroke="#ff4081" stroke-width="1.8"
-                        stroke-linecap="round" fill="none" />
-                    </svg>
-                </div>
-
-                <div class="score-panel">
-                    <div class="score-box" id="scoreBox">
-                        <div class="score-label">Score</div>
-                        <div class="score-value" id="scoreDisplay">0</div>
-                    </div>
-                    <div class="score-box high" id="highScoreBox">
-                        <div class="score-label">Best</div>
-                        <div class="score-value" id="highScoreDisplay">0</div>
-                    </div>
-                </div>
+    <div class="game-wrapper" id="gameWrapper">
+        <div class="header">
+            <div class="deco-snake" aria-hidden="true">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="grad-head" cx="40%" cy="35%" r="60%">
+                            <stop offset="0%" stop-color="#69f0ae" />
+                            <stop offset="60%" stop-color="#00c853" />
+                            <stop offset="100%" stop-color="#007e33" />
+                        </radialGradient>
+                        <radialGradient id="grad-body" cx="40%" cy="35%" r="60%">
+                            <stop offset="0%" stop-color="#52e09a" />
+                            <stop offset="60%" stop-color="#00a846" />
+                            <stop offset="100%" stop-color="#006629" />
+                        </radialGradient>
+                    </defs>
+                    <circle cx="50" cy="78" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
+                    <circle cx="40" cy="68" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
+                    <circle cx="34" cy="56" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
+                    <circle cx="38" cy="44" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
+                    <circle cx="50" cy="37" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
+                    <circle cx="62" cy="32" r="10" fill="url(#grad-body)" stroke="#004d1a" stroke-width="1" />
+                    <circle cx="72" cy="24" r="13" fill="url(#grad-head)" stroke="#004d1a" stroke-width="1.2" />
+                    <circle cx="67" cy="18" r="4" fill="white" />
+                    <circle cx="77" cy="18" r="4" fill="white" />
+                    <circle cx="68" cy="19" r="2.2" fill="#111" />
+                    <circle cx="78" cy="19" r="2.2" fill="#111" />
+                    <path d="M72 36 L72 42 M72 42 L69 46 M72 42 L75 46" stroke="#ff4081" stroke-width="1.8" stroke-linecap="round" fill="none" />
+                </svg>
             </div>
 
-            <div class="controls-row">
-                <button class="btn btn-play" id="btnStart" title="Start / Restart">Start</button>
-                <button class="btn btn-pause" id="btnPause" title="Pause / Resume">Pause</button>
-            </div>
-
-            <canvas id="gameCanvas" width="500" height="500"></canvas>
-
-            <div class="touch-controls" id="touchControls" aria-label="Touch controls">
-                <div class="touch-row">
-                    <div class="touch-btn empty" aria-hidden="true"></div>
-                    <button class="touch-btn" id="touchUp" aria-label="Up">▲</button>
-                    <div class="touch-btn empty" aria-hidden="true"></div>
+            <div class="score-panel">
+                <div class="score-box" id="scoreBox">
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="scoreDisplay">0</div>
                 </div>
-                <div class="touch-row">
-                    <button class="touch-btn" id="touchLeft" aria-label="Left">◀</button>
-                    <button class="touch-btn" id="touchDown" aria-label="Down">▼</button>
-                    <button class="touch-btn" id="touchRight" aria-label="Right">▶</button>
+                <div class="score-box high" id="highScoreBox">
+                    <div class="score-label">Best</div>
+                    <div class="score-value" id="highScoreDisplay">0</div>
                 </div>
             </div>
         </div>
-        <script src="snake.js"></script>
+
+        <div class="controls-row">
+            <button class="btn btn-play" id="btnStart" aria-label="Start / Restart game">Start</button>
+            <button class="btn btn-pause" id="btnPause" aria-label="Pause / Resume game">Pause</button>
+        </div>
+
+        <canvas id="gameCanvas" role="img" aria-label="Snake game board"></canvas>
+
+        <div class="touch-controls" id="touchControls" aria-label="Touch controls">
+            <div class="touch-row">
+                <div class="touch-btn empty" aria-hidden="true"></div>
+                <button class="touch-btn" id="touchUp" aria-label="Up">▲</button>
+                <div class="touch-btn empty" aria-hidden="true"></div>
+            </div>
+            <div class="touch-row">
+                <button class="touch-btn" id="touchLeft" aria-label="Left">◀</button>
+                <button class="touch-btn" id="touchDown" aria-label="Down">▼</button>
+                <button class="touch-btn" id="touchRight" aria-label="Right">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="snake.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .catch(() => { });
+        }
+    </script>
     </body>
 </html>
