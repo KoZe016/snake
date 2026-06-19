@@ -1,1 +1,22 @@
-{"name":"Snake Game","short_name":"Snake","icons":[{"src":"android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#0f0f1a","background_color":"#1a1a2e","display":"standalone"}
+{
+    "name": "Snake Game",
+    "short_name": "Snake",
+    "description": "Classic Snake with modern touch and offline support",
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#0f0f1a",
+    "background_color": "#1a1a2e",
+    "icons": [
+        {
+            "src": "android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
