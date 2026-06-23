@@ -312,34 +312,6 @@ canvas {
     border-color: #ff408144;
 }
 
-/* ── Status text ─────────────────────────────────────────────── */
-.game-status {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    letter-spacing: 0.4px;
-    text-align: center;
-    min-height: 20px;
-    transition: color 0.3s ease;
-}
-
-.game-status.alert {
-    color: var(--accent);
-    font-weight: 600;
-    animation: pulse 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-}
-
 /* ── Mobile touch controls ───────────────────────────────────── */
 .touch-controls {
     display: none;
@@ -494,10 +466,6 @@ canvas {
         flex-direction: row;
         align-items: center;
     }
-
-    .game-status {
-        width: 100%;
-    }
 }
 /* ── Scroll / touch lock ─────────────────────────────────────── */
 html, body {
@@ -526,15 +494,8 @@ html, body {
     box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
 }
 
-/* Speed indicator — subtle text update */
-.game-status {
-    min-height: 20px;
-}
 
-/* ── Hide play/pause buttons on non-touch devices ───────────── */
+
 /* (removed — controls row is always visible) */
 
-/* ── Status text: only visible before game starts ───────────── */
-.game-status:empty {
-    display: none;
-    }
+
