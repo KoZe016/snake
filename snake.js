@@ -102,7 +102,8 @@
         gameWrapper.classList.remove('game-over-state');
         scoreBox.classList.remove('pop');
         btnPause.textContent = 'Pause';
-        btnPause.style.display = '';
+        btnPause.style.display = 'none'; // shown only while a game is running
+        btnStart.textContent = 'Start';
 
         spawnFood();
         drawGame(performance.now());
@@ -278,6 +279,8 @@
         shakeAmount = 14;
         stopLoop();
         btnPause.style.display = 'none';
+        btnStart.style.display = ''; // show Restart
+        btnStart.textContent = 'Restart';
         gameStatus.textContent = `Game over — score ${score}`;
         drawGame(performance.now()); // one last draw to show the shake
         gameWrapper.classList.add('game-over-state');
@@ -555,7 +558,8 @@
         isPaused        = false;
         isGameOver      = false;
         hasStartedOnce  = true;
-        btnStart.textContent = 'Restart';
+        btnStart.style.display = 'none'; // replaced by Pause while playing
+        btnPause.style.display = '';
         startLoop();
     }
 
