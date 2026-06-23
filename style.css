@@ -343,23 +343,23 @@ canvas {
 /* ── Mobile touch controls ───────────────────────────────────── */
 .touch-controls {
     display: none;
-    gap: 8px;
+    gap: 12px;
 }
 
 .touch-row {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     justify-content: center;
 }
 
 .touch-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
     border: 2px solid var(--border);
     background: var(--surface);
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -532,11 +532,7 @@ html, body {
 }
 
 /* ── Hide play/pause buttons on non-touch devices ───────────── */
-@media (pointer: fine) {
-    .controls-row {
-        display: none;
-    }
-}
+/* (removed — controls row is always visible) */
 
 /* ── Status text: only visible before game starts ───────────── */
 .game-status:empty {
