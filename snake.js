@@ -17,7 +17,6 @@
     const ctx               = canvas.getContext('2d');
     const scoreDisplay      = document.getElementById('scoreDisplay');
     const highScoreDisplay  = document.getElementById('highScoreDisplay');
-    const gameStatus        = document.getElementById('gameStatus');
     const gameWrapper       = document.getElementById('gameWrapper');
     const scoreBox          = document.getElementById('scoreBox');
     const btnStart          = document.getElementById('btnStart');
@@ -98,7 +97,6 @@
         lastTickTime = 0;
 
         scoreDisplay.textContent = '0';
-        gameStatus.textContent = '';
         gameWrapper.classList.remove('game-over-state');
         scoreBox.classList.remove('pop');
         btnPause.textContent = 'Pause';
@@ -237,7 +235,6 @@
             spawnParticles(food.x, food.y, '#00e676', 14);
             spawnFood();
             triggerScorePop();
-            gameStatus.textContent = `Speed ${currentSpeed.toFixed(1)}`;
         } else if (eatsBonus) {
             const pts   = 30;
             score      += pts;
@@ -247,7 +244,6 @@
             bonusFood      = null;
             bonusFoodTicks = 0;
             triggerScorePop();
-            gameStatus.textContent = `Speed ${currentSpeed.toFixed(1)}`;
         } else {
             snake.pop();
         }
@@ -281,7 +277,6 @@
         btnPause.style.display = 'none';
         btnStart.style.display = ''; // show Restart
         btnStart.textContent = 'Restart';
-        gameStatus.textContent = `Game over — score ${score}`;
         drawGame(performance.now()); // one last draw to show the shake
         gameWrapper.classList.add('game-over-state');
         btnStart.textContent = 'Restart';
@@ -569,10 +564,8 @@
         if (isPaused) {
             stopLoop();
             btnPause.textContent  = 'Resume';
-            gameStatus.textContent = 'Paused';
         } else {
             btnPause.textContent  = 'Pause';
-            gameStatus.textContent = '';
             startLoop();
         }
         drawGame(performance.now());
