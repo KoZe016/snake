@@ -2,7 +2,6 @@
     "name": "Snake Game",
     "short_name": "Snake",
     "description": "Classic Snake with modern touch and offline support",
-    "start_url": ".",
     "display": "standalone",
     "orientation": "portrait",
     "theme_color": "#0f0f1a",
